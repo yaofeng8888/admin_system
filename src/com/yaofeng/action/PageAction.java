@@ -1,7 +1,11 @@
 package com.yaofeng.action;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.yaofeng.model.Email;
 
 @Controller
 @RequestMapping(value="/user")
@@ -58,4 +62,5 @@ public class PageAction {
 	public String writeEmail() {
 		return "writeEmail";
 	}
+	
 }

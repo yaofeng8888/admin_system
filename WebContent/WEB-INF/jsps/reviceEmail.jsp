@@ -68,7 +68,7 @@
 							<a href="${pageContext.request.contextPath }/user/reviceEmail" target="_self">收邮件</a>
 						</dd>
 						<dd>
-							<a href="mailGarage!garage.action" target="_self">垃圾邮件</a>
+							<a href="${pageContext.request.contextPath }/user/junkEmail" target="_self">垃圾邮件</a>
 						</dd>
 					</dl>
 					<dl>
@@ -114,15 +114,17 @@
 						<div class="pages">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr >
-									<td align="right" width="30%">邮件标题：</td>
-									<td align="right" width="30%">内容：</td>
-									<td align="right" width="30%">是否以读：</td>
-									<td align="right" width="30%">时间：</td>
-									<td align="right" width="30%">操作：</td>
+									<td align="left" width="30%">邮件标题</td>
+									<td align="left" width="30%">内容</td>
+									<td align="left" width="30%">是否以读</td>
+									<td align="left" width="30%">时间</td>
+									<td align="left" width="30%">操作</td>
 								</tr>
 								<c:forEach items="${findEmailByName }" var="byname">
-								<td  align="left">${byname.email_title}</td>
-								<td  align="left">${byname.email_title}</td>
+								<tr>
+								<td  align="left"><a href="${pageContext.request.contextPath}/user/emailinfor?email_id=${byname.email_id}">
+								${byname.email_title}</a></td>
+								<td  align="left">${byname.email_body}</td>
 								<c:if test="${byname.isRead == 0}">
 								<td  align="left">未读</td>
 								</c:if>
@@ -130,7 +132,9 @@
 								<td  align="left">已读</td>
 								</c:if>
 								<td  align="left">${byname.sendTime}</td>
-								</c:forEach>
+								<td><a href="${pageContext.request.contextPath }/user/logicallydelete?email_id=${byname.email_id}">删除</a></td>
+								</tr>
+								</c:forEach>						
 								</table>
 								
 						</div>

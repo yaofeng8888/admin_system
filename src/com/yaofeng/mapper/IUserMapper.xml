@@ -49,7 +49,37 @@ INSERT INTO sys_email(email_title,email_body,emp_name,file_name,send_name)VALUE(
 
 <!-- 查询邮件信息列表 -->
 <select id="findEmailByName" parameterType="User" resultType="Email">
-SELECT email_title,email_body,isRead,DATE_FORMAT(sendTime,'%Y-%m-%d') AS sendTime,emp_name,file_name,isDelete,send_name FROM sys_email where emp_name=#{emp_name}
+SELECT email_title,email_body,isRead,DATE_FORMAT(sendTime,'%Y-%m-%d') AS sendTime,emp_name,file_name,isDelete,send_name,email_id FROM sys_email where emp_name=#{emp_name}
+and isDelete=0
 </select>
+
+<!-- 邮件详情页 -->
+<select id="findEmailById" parameterType="Email" resultType="Email">
+select * from sys_email where email_id=#{email_id}
+</select>
+<!--修改email的读写状态  -->
+<update id="updateEmailById" parameterType="Email">
+UPDATE sys_email SET isRead=1 WHERE email_id=#{email_id};
+</update>
+
+<!-- 逻辑删除 -->
+<update id="deleteBylogically" parameterType="Email">
+UPDATE sys_email SET isDelete=1 WHERE email_id=#{email_id};
+</update>
+
+<!-- 查找所有垃圾邮件 -->
+<select id="findAllJunk" parameterType="User" resultType="Email">
+SELECT email_title,email_body,isRead,DATE_FORMAT(sendTime,'%Y-%m-%d') AS sendTime,emp_name,file_name,isDelete,send_name,email_id FROM sys_email where emp_name=#{emp_name}
+and isDelete=1
+</select>
+<!-- 物理删除 -->
+<delete id="deleteEmail" parameterType="Email">
+delete from sys_email where email_id=#{email_id}
+</delete>
+
+<!-- 还原操作 -->
+<update id="restoreEmail" parameterType="Email">
+UPDATE sys_email SET isDelete=0 WHERE email_id=#{email_id};
+</update>
 </mapper>
   

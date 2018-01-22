@@ -67,4 +67,40 @@ public class UserMapperImpl implements IUserMapper {
 		return null;
 	}
 
+	@Override
+	public Email findEmailById(Email email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateEmailById(Email email) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteBylogically(Email email) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Email> findAllJunk(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteEmail(Email email) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void restoreEmail(Email email) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

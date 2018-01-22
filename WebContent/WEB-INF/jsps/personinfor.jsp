@@ -62,13 +62,13 @@
 							邮件管理
 						</dt>
 						<dd>
-							<a href="mailWrite.action" target="_self">写邮件</a>
+							<a href="${pageContext.request.contextPath }/user/writeEmail" target="_self">写邮件</a>
 						</dd>
 						<dd>
-							<a href="mailReceive!receive.action" target="_self">收邮件</a>
+							<a href="${pageContext.request.contextPath }/user/reviceEmail" target="_self">收邮件</a>
 						</dd>
 						<dd>
-							<a href="mailGarage!garage.action" target="_self">垃圾邮件</a>
+							<a href="${pageContext.request.contextPath }/user/junkEmail" target="_self">垃圾邮件</a>
 						</dd>
 					</dl>
 					<dl>

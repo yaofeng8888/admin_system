@@ -68,7 +68,7 @@
 							<a href="${pageContext.request.contextPath }/user/reviceEmail" target="_self">收邮件</a>
 						</dd>
 						<dd>
-							<a href="mailGarage!garage.action" target="_self">垃圾邮件</a>
+							<a href="${pageContext.request.contextPath }/user/junkEmail" target="_self">垃圾邮件</a>
 						</dd>
 					</dl>
 					<dl>

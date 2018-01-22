@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -23,7 +23,7 @@
 		</div>
 		<div class="status">
 			<div class="global-width">
-				${findUser.emp_name}你好！欢迎访问办公管理系统！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				${findUser.emp_name }你好！欢迎访问办公管理系统！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -109,26 +109,35 @@
  
 					<div class="action">
 						<div class="t">
-							账户管理列表
+							垃圾邮件列表
 						</div>
 						<div class="pages">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
-							<tr>
-							<td align="left" width="30%">用户名</td>
-							<td align="left" width="30%">昵称</td>
-							<td align="left" width="30%">手机</td>
-							<td align="left" width="30%">地址</td>
-							</tr>
-							<c:forEach items="${findAll}" var="user">
-									<tr style="border=0">
-									<td  align="left"><input type="text" value="${user.emp_name }" readonly="readonly"/></td>
-									<td  align="left"><input type="text" value="${user.emp_nickname }" readonly="readonly"/></td>
-									<td  align="left"><input type="text" value="${user.emp_phone }" readonly="readonly"/></td>
-									<td  align="left"><input type="text" value="${user.emp_address}" readonly="readonly"/></td>
+								<tr >
+									<td align="left" width="30%">邮件标题</td>
+									<td align="left" width="30%">内容</td>
+									<td align="left" width="30%">是否以读</td>
+									<td align="left" width="30%">时间</td>
+									<td align="left" width="30%">操作</td>
 								</tr>
-							</c:forEach>
+								<c:forEach items="${findAll}" var="all">
+								<tr>
+								<td  align="left">${all.email_title}</td>
+								<td  align="left">${all.email_body}</td>
+								<c:if test="${all.isRead == 0}">
+								<td  align="left">未读</td>
+								</c:if>
+								<c:if test="${all.isRead == 1}">
+								<td  align="left">已读</td>
+								</c:if>
+								<td  align="left">${all.sendTime}</td>
+								<td><a href="${pageContext.request.contextPath }/user/delete?email_id=${all.email_id}">删除</a>
+								|<a href="${pageContext.request.contextPath }/user/restoreEmail?email_id=${all.email_id}">还原</a>
+								</td>
+								</tr>
+								</c:forEach>						
 								</table>
-								<a href="${pageContext.request.contextPath }/user/toaddUser"><input type="button" value="添加用户"></a>
+								
 						</div>
 					</div>
 			</div>

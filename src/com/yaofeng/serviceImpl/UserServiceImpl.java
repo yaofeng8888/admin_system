@@ -76,4 +76,40 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.findEmailByName(user);
 	}
 
+	@Override
+	public Email findEmailById(Email email) {
+		// TODO Auto-generated method stub
+		return userMapper.findEmailById(email);
+	}
+
+	@Override
+	public void updateEmailById(Email email) {
+		// TODO Auto-generated method stub
+		userMapper.updateEmailById(email);
+	}
+
+	@Override
+	public void deleteBylogically(Email email) {
+		// TODO Auto-generated method stub
+		userMapper.deleteBylogically(email);
+	}
+
+	@Override
+	public List<Email> findAllJunk(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.findAllJunk(user);
+	}
+
+	@Override
+	public void deleteEmail(Email email) {
+		// TODO Auto-generated method stub
+		userMapper.deleteEmail(email);
+	}
+
+	@Override
+	public void restoreEmail(Email email) {
+		// TODO Auto-generated method stub
+		userMapper.restoreEmail(email);
+	}
+
 }

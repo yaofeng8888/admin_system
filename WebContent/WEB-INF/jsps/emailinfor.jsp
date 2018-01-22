@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -23,14 +23,14 @@
 		</div>
 		<div class="status">
 			<div class="global-width">
-				${findUser.emp_name}你好！欢迎访问办公管理系统！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				${findUser.emp_name }你好！欢迎访问办公管理系统！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="location.href='loginOut.action'";>注销</a>
 			</div>
 		</div>
-		<form id="myForm" name="myForm" action="userInfo!editData.action" method="post">
+		<form id="myForm" name="myForm" action="${pageContext.request.contextPath }/user/sendEmail"  enctype="multipart/form-data" method="post">
 		<input type="hidden" name="u.id" value="26"/>
 		<input type="hidden" name="u.sex" value="2" id="u_sex"/>
 		<input type="hidden" name="u.supper" value="0" id="u_supper"/>
@@ -109,26 +109,29 @@
  
 					<div class="action">
 						<div class="t">
-							账户管理列表
+							写邮件
 						</div>
 						<div class="pages">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
-							<tr>
-							<td align="left" width="30%">用户名</td>
-							<td align="left" width="30%">昵称</td>
-							<td align="left" width="30%">手机</td>
-							<td align="left" width="30%">地址</td>
-							</tr>
-							<c:forEach items="${findAll}" var="user">
-									<tr style="border=0">
-									<td  align="left"><input type="text" value="${user.emp_name }" readonly="readonly"/></td>
-									<td  align="left"><input type="text" value="${user.emp_nickname }" readonly="readonly"/></td>
-									<td  align="left"><input type="text" value="${user.emp_phone }" readonly="readonly"/></td>
-									<td  align="left"><input type="text" value="${user.emp_address}" readonly="readonly"/></td>
+								<tr >
+									<td align="right" width="30%">邮件标题：</td><td  align="left"><input type="text" value="${findEmailById.email_title }"  /></td>
 								</tr>
-							</c:forEach>
+								
+								<tr >
+									<td align="right" width="30%">邮件内容：</td><td  align="left"><textarea rows="10" cols="19" >${findEmailById.email_body}</textarea></td>
+								</tr>
+								<tr >
+									<td align="right" width="30%">附件下载：</td><td  align="left"><input type="file" name="file"/></td>
+								</tr> 
+								<tr >
+									<td align="right" width="30%">发件人：</td><td  align="left"><input type="text"  value="${findEmailById.send_name }"  /></td>
+								</tr>
+								<tr >
+									<td align="center" colspan="2"><br/><a href="${pageContext.request.contextPath }/user/updateEmail?email_id=${findEmailById.email_id}"><input type="button"  id="save" value="返回"/></a></td>
+								</tr>
+								
 								</table>
-								<a href="${pageContext.request.contextPath }/user/toaddUser"><input type="button" value="添加用户"></a>
+								
 						</div>
 					</div>
 			</div>

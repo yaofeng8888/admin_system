@@ -1,6 +1,7 @@
 package com.yaofeng.model;
 
 public class Email {
+	private Integer email_id;
 	private String email_title;
 	private String email_body;
 	private String sendTime;
@@ -9,6 +10,12 @@ public class Email {
 	private String file_name;
 	private String send_name;
 	
+	public Integer getEmail_id() {
+		return email_id;
+	}
+	public void setEmail_id(Integer email_id) {
+		this.email_id = email_id;
+	}
 	public String getSend_name() {
 		return send_name;
 	}
