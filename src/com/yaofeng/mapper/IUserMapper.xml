@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 映射接口到IUserMapper -->
+<mapper namespace="com.yaofeng.mapper.IUserMapper">
+<!-- 个人信息显示 -->
+	<select id="findUser" parameterType="User" resultType="User">
+		select *
+		from sys_emp where emp_name=#{emp_name}
+	</select>
+<!-- 账户修改 -->
+	<select id="saveAccount" parameterType="User">
+	update sys_emp set
+		emp_name=#{emp_name},emp_password=#{emp_password} where emp_id=#{emp_id}
+	</select>
+<!-- 查找表中所有账户 -->
+	<select id="findAll" resultType="User" >
+	select * from sys_emp
+	</select>
+<!-- 根据名字查找自己的休假 -->
+	<select id="findLeaveList" parameterType="User" resultType="Leave">
+	SELECT emp_name,DATE_FORMAT(start,'%Y-%m-%d') AS start,DATE_FORMAT(end,'%Y-%m-%d') AS end,days,state,reason FROM sys_leave WHERE emp_name=#{emp_name}
+	</select>
+<!-- 显示所有休假列表 -->
+	<select id="findAllLeave" resultType="Leave">
+	SELECT emp_name,DATE_FORMAT(start,'%Y-%m-%d') AS start,DATE_FORMAT(end,'%Y-%m-%d') AS end,days,state,reason FROM sys_leave
+	</select>
+<!-- 修改个人信息 -->
+	<update id="saveUser" parameterType="User">
+		update sys_emp set
+		emp_name=#{emp_name},emp_age=#{emp_age},emp_sex=#{emp_sex},
+		emp_phone =#{emp_phone},emp_address=#{emp_address} where emp_id=#{emp_id}
+	</update>
+<!-- 增加账户 -->	
+	<insert id="addAccount" parameterType="User">
+	INSERT INTO sys_emp(emp_name,emp_password,emp_nickname,emp_age,emp_sex,emp_phone,emp_address)
+VALUE(#{emp_name},#{emp_password},#{emp_nickname},#{emp_age},#{emp_sex},#{emp_phone},#{emp_address})
+<!-- 申请休假 -->	
+	</insert>
+	<insert id="submitapply" parameterType="Leave">
+	INSERT INTO sys_leave(emp_name,START,END,days,reason,checkmen)VALUE(#{emp_name},#{start},#{end},#{days},#{reason},#{checkmen})
+	</insert>
+	
+<!-- 发送邮件 -->
+<insert id="saveEmail" parameterType="Email">
+INSERT INTO sys_email(email_title,email_body,emp_name,file_name,send_name)VALUE(#{email_title},#{email_body},#{emp_name},#{file_name},#{send_name})
+</insert>
+
+<!-- 查询邮件信息列表 -->
+<select id="findEmailByName" parameterType="User" resultType="Email">
+SELECT email_title,email_body,isRead,DATE_FORMAT(sendTime,'%Y-%m-%d') AS sendTime,emp_name,file_name,isDelete,send_name FROM sys_email where emp_name=#{emp_name}
+</select>
+</mapper>
+  
