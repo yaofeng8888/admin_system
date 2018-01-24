@@ -27,7 +27,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="location.href='loginOut.action'";>注销</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath }/user/logout">注销</a>
 			</div>
 		</div>
 		<form id="myForm" name="myForm" action="${pageContext.request.contextPath }/user/sendEmail"  enctype="multipart/form-data" method="post">
@@ -83,7 +83,7 @@
 							</c:if>
 						<c:if test="${findUser.isAdmin == 1}">
 						<dd>
-							<a href="${pageContext.request.contextPath}/user/showAllLeave" target="_self">审核</a>
+							<a href="${pageContext.request.contextPath}/user/showAllLeave?emp_name=${findUser.emp_name}" target="_self">审核</a>
 						</dd>
 						</c:if>
 					</dl>
@@ -109,22 +109,26 @@
  
 					<div class="action">
 						<div class="t">
-							写邮件
+							邮件详情
 						</div>
 						<div class="pages">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr >
-									<td align="right" width="30%">邮件标题：</td><td  align="left"><input type="text" value="${findEmailById.email_title }"  /></td>
+									<td align="right" width="30%">邮件标题：</td><td  align="left"><input type="text" value="${findEmailById.email_title }"  readonly="readonly"/></td>
 								</tr>
 								
 								<tr >
-									<td align="right" width="30%">邮件内容：</td><td  align="left"><textarea rows="10" cols="19" >${findEmailById.email_body}</textarea></td>
+									<td align="right" width="30%">邮件内容：</td><td  align="left"><textarea rows="10" cols="19" readonly="readonly" >${findEmailById.email_body}</textarea></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">附件下载：</td><td  align="left"><input type="file" name="file"/></td>
+									<td align="right" width="30%">发送时间：</td><td  align="left"><input type="text" value="${findEmailById.sendTime }" readonly="readonly" /></td>
+								</tr>
+								<tr >
+									<td align="right" width="30%">附件下载：</td><td  align="left"><a href="${pageContext.request.contextPath }/user/download?file_name=${findEmailById.file_name}">下载
+									${findEmailById.file_name}</a></td>
 								</tr> 
 								<tr >
-									<td align="right" width="30%">发件人：</td><td  align="left"><input type="text"  value="${findEmailById.send_name }"  /></td>
+									<td align="right" width="30%">发件人：</td><td  align="left"><input type="text"  value="${findEmailById.send_name }" readonly="readonly" /></td>
 								</tr>
 								<tr >
 									<td align="center" colspan="2"><br/><a href="${pageContext.request.contextPath }/user/updateEmail?email_id=${findEmailById.email_id}"><input type="button"  id="save" value="返回"/></a></td>

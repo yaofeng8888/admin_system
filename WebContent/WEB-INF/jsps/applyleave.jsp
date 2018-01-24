@@ -27,7 +27,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="location.href='loginOut.action'";>注销</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath }/user/logout">注销</a>
 			</div>
 		</div>
 		<form id="myForm" name="myForm" action="${pageContext.request.contextPath }/user/submitapply" method="post">
@@ -132,23 +132,23 @@
 								<tr >
 									<td align="right" width="30%">请假原因</td><td  align="left"><input type="text" name="reason" value=""  id="reason"/></td>
 								</tr>
-								<%-- <tr >
+								 <tr >
 									<td align="right" width="30%">审批人</td><td  align="left">
-									<select name="checkman">
-									<c:forEach items="${findUser }" var="user">
-									<c:if test="${user.isAdmin==1 }">
-									<option>${findUser.emp_name}</option>							
-									</c:if>
+									<select name="checkmen">
+									<c:forEach items="${allAdmin}" var="user">
+									<option>${user.emp_name}</option>							
 									</c:forEach>
 									</select>
-														</td>
-								</tr> --%>
-								<tr >
-									<td align="right" width="30%">审批人</td><td  align="left"><input type="text" name="checkmen"></td>
+									</td>
+								</tr> 
+								<!-- <tr >
+									<td align="right" width="30%">审批人</td>
+									<td  align="left"><input type="text" name="checkmen">
+								</td>
+								</tr> -->
 								<tr >
 									<td align="center" colspan="2"><br/><input type="submit"  id="save" value="提交申请" onclick="setit()" /></td>
 								</tr>
-								
 								</table>
 								
 						</div>

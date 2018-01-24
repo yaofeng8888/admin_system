@@ -50,7 +50,7 @@ public class UserMapperImpl implements IUserMapper {
 	}
 
 	@Override
-	public List<Leave> findAllLeave() {
+	public List<Leave> findAllLeave(Leave leave) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -101,6 +101,36 @@ public class UserMapperImpl implements IUserMapper {
 	public void restoreEmail(Email email) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void updateLeaveState(Leave leave) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Leave selectById(Leave leave) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateLeaveStateFail(Leave leave) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<User> findAllAdmin() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<User> selectAllRevice() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

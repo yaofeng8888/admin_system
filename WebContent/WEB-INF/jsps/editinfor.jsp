@@ -34,8 +34,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a
-				href="#" onclick="location.href='loginOut.action'";>注销</a>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath }/user/logout">注销</a>
 		</div>
 	</div>
 	<form id="myForm" name="myForm"
@@ -127,7 +126,7 @@
 							<tr>
 								<td align="right" width="30%">昵称：</td>
 								<td align="left"><input type="text" name="emp_name"
-									value="${findUser.emp_name }" id="emp_name" /></td>
+									value="${findUser.emp_name }" id="emp_name" /><label style="color:red">*</label></td>
 							</tr>
 							<tr>
 								<td align="right" width="30%">年龄：</td>
@@ -149,7 +148,7 @@
 							<tr>
 								<td align="right" width="30%">手机：</td>
 								<td align="left"><input type="text" name="emp_phone"
-									value="${findUser.emp_phone }" id="emp_phone" /></td>
+									value="${findUser.emp_phone }" id="emp_phone" /><label style="color:red">*</label></td>
 							</tr>
 							<tr>
 								<td align="right" width="30%">地址：</td>

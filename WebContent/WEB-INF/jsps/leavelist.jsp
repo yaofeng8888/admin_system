@@ -27,7 +27,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="location.href='loginOut.action'";>注销</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath }/user/logout">注销</a>
 			</div>
 		</div>
 		<form id="myForm" name="myForm" action="userInfo!editData.action" method="post">
@@ -83,7 +83,7 @@
 							</c:if>
 						<c:if test="${findUser.isAdmin == 1}">
 						<dd>
-							<a href="${pageContext.request.contextPath}/user/showAllLeave" target="_self">审核</a>
+							<a href="${pageContext.request.contextPath}/user/showAllLeave?emp_name=${findUser.emp_name}" target="_self">审核</a>
 						</dd>
 						</c:if>
 					</dl>
@@ -112,34 +112,37 @@
 							休假列表
 						</div>
 						<div class="pages">
-							<table width="90%" border="0" cellspacing="0" cellpadding="0">
+							<table width="50%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
-							<td align="left" width="10%">申请人</td>
-							<td align="left" width="10%">开始时间</td>
-							<td align="left" width="10%">结束时间</td>
-							<td align="left" width="10%">天数</td>
-							<td align="left" width="10%">审批状态</td>
-							<td align="left" width="10%">原因</td>
+							<td>申请人</td>
+							<td>开始时间</td>
+							<td>结束时间</td>
+							<td>天数</td>
+							<td>审批状态</td>
+							<td>原因</td>
 							<c:if test="${findUser.isAdmin == 1 }">
-								<td align="left" width="20%">操作</td>
+								<td>操作</td>
 								</c:if> 
 							</tr>
 								<c:forEach items="${leavelist }" var="list">
 								<tr>
-								<td  width="15%"><input type = "text"  value="${list.emp_name }"readonly="readonly" /></td>
-								<td  width="15%"><input type="text"	 value="${list.start }" readonly="readonly"  /></td>
-								<td  width="15%"><input type = "text"  value="${list.end }"readonly="readonly" /></td>
-								<td	 width="15%"><input type = "text"  value="${list.days }"readonly="readonly" /></td>
+								<td><input type ="text"  value="${list.emp_name }"readonly="readonly" /></td>
+								<td><input type="text"	 value="${list.start }" readonly="readonly"  /></td>
+								<td><input type = "text"  value="${list.end }"readonly="readonly" /></td>
+								<td><input type = "text"  value="${list.days }"readonly="readonly" /></td>
 								 <c:if test="${list.state == 1 }">
-								<td  width="15%"><input type = "text"  value="未审核"readonly="readonly" /></td>
+								<td><input type = "text"  value="未审核"readonly="readonly" /></td>
 								</c:if>
 								<c:if test="${list.state == 0 }">
-								<td  width="15%"><input type = "text"  value="已审核"readonly="readonly" /></td>
+								<td><input type = "text"  value="已审核"readonly="readonly" /></td>
 								</c:if> 
-								<td  width="20%"><input type = "text"  value="${list.reason }"readonly="readonly" /></td>
+								<c:if test="${list.state == 2 }">
+								<td><input type = "text"  value="审核拒绝"readonly="readonly" /></td>
+								</c:if> 
+								<td><input type = "text"  value="${list.reason }"readonly="readonly" /></td>
 								</tr>
 								<c:if test="${findUser.isAdmin == 1 }">
-								<td  width="15%"><a href="${pageContext.request.contextPath }/user/dealleave">审核</a></td>
+								<td><a href="${pageContext.request.contextPath }/user/dealleave?leave_id=${list.leave_id}">审核</a></td>
 								</c:if> 
 								</c:forEach>
 								<tr>

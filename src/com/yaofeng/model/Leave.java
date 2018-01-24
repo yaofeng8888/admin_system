@@ -1,8 +1,13 @@
 package com.yaofeng.model;
 
+import java.io.Serializable;
 
-public class Leave {
+public class Leave implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String emp_name;
 	private String start;
 	private String end;
@@ -10,8 +15,14 @@ public class Leave {
 	private Integer state;
 	private String reason;
 	private String checkmen;
+	private Integer leave_id;
 	
-	
+	public Integer getLeave_id() {
+		return leave_id;
+	}
+	public void setLeave_id(Integer leave_id) {
+		this.leave_id = leave_id;
+	}
 	public String getCheckmen() {
 		return checkmen;
 	}

@@ -27,7 +27,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="location.href='loginOut.action'";>注销</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath }/user/logout">注销</a>
 			</div>
 		</div>
 		<form id="myForm" name="myForm" action="${pageContext.request.contextPath }/user/saveAccount" method="post">
@@ -83,7 +83,7 @@
 							</c:if>
 						<c:if test="${findUser.isAdmin == 1}">
 						<dd>
-							<a href="${pageContext.request.contextPath}/user/showAllLeave" target="_self">审核</a>
+							<a href="${pageContext.request.contextPath}/user/showAllLeave?emp_name=${findUser.emp_name}" target="_self">审核</a>
 						</dd>
 						</c:if>
 					</dl>
@@ -114,10 +114,10 @@
 						<div class="pages">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr >
-									<td align="right" width="30%">用户名：</td><td  align="left"><input type="text" name="emp_name" value="${findUser.emp_name }"  id="emp_name"/></td>
+									<td align="right" width="30%">用户名：</td><td  align="left"><input type="text" name="emp_name" value="${findUser.emp_name }"  id="emp_name"/><label style="color:red">*</label></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">密码：</td><td  align="left"><input type="text" name="emp_password" value="${findUser.emp_password }"  id="emp_password"/></td>
+									<td align="right" width="30%">密码：</td><td  align="left"><input type="text" name="emp_password" value="${findUser.emp_password }"  id="emp_password"/><label style="color:red">*</label></td>
 								</tr>
 								<tr>
 								<td align="center" colspan="2"><br />

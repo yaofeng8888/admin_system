@@ -1,6 +1,12 @@
 package com.yaofeng.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer emp_id;
 	private String emp_name;
 	private String emp_password;

@@ -19,10 +19,20 @@ public interface IUserMapper {
 	void addAccount(User user);
 	//查找所有自己请假列表
 	List<Leave> findLeaveList(User user);
+	//申请休假---->审批人列表
+	List<User> findAllAdmin();
 	//提交请假申请
 	void submitapply(Leave leave);
 	//查找所有审核了表
-	List<Leave> findAllLeave();
+	List<Leave> findAllLeave(Leave leave);
+	//审核详情
+	Leave selectById(Leave leave);
+	//审核通过
+	void updateLeaveState(Leave leave);
+	//审核拒绝
+	void updateLeaveStateFail(Leave leave);
+	//查找所有的收件人
+	List<User> selectAllRevice();
 	//发送邮件
 	void saveEmail(Email email);
 	//查询邮件列表

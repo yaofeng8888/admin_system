@@ -27,7 +27,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="location.href='loginOut.action'";>注销</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath }/user/logout">注销</a>
 			</div>
 		</div>
 		<form id="myForm" name="myForm" action="${pageContext.request.contextPath }/user/submitapply" method="post">
@@ -83,7 +83,7 @@
 							</c:if>
 						<c:if test="${findUser.isAdmin == 1}">
 						<dd>
-							<a href="${pageContext.request.contextPath}/user/showAllLeave" target="_self">审核</a>
+							<a href="${pageContext.request.contextPath}/user/showAllLeave?emp_name=${findUser.emp_name}" target="_self">审核</a>
 						</dd>
 						</c:if>
 					</dl>
@@ -114,39 +114,30 @@
 						<div class="pages">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr >
-									<td align="right" width="30%">姓名</td><td  align="left"><input type="text" name="emp_name" value="${allLeave.emp_name }"  id="emp_name"/></td>
+									<td align="right" width="30%">姓名</td><td  align="left"><input type="text" name="emp_name" value="${personLeave.emp_name }"  id="emp_name"/></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">开始时间</td><td  align="left"><input type="text" name="start" value="${allLeave.start }"  id="start"/></td>
+									<td align="right" width="30%">开始时间</td><td  align="left"><input type="text" name="start" value="${personLeave.start }"  id="start"/></td>
 								</tr>
 								<tr >
 									<td align="right" width="30%">结束时间</td><td  align="left">
 									
-										<input type="text" name="end" value="${allLeave.end }"  id="end"/>
+										<input type="text" name="end" value="${personLeave.end }"  id="end"/>
 									
 									</td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">天数</td><td  align="left"><input type="text" name="days" value="${allLeave.days }"  id="days"/></td>
+									<td align="right" width="30%">天数</td><td  align="left"><input type="text" name="days" value="${personLeave.days }"  id="days"/></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">请假原因</td><td  align="left"><input type="text" name="reason" value="${allLeave.reason }"  id="reason"/></td>
+									<td align="right" width="30%">请假原因</td><td  align="left"><input type="text" name="reason" value="${personLeave.reason }"  id="reason"/></td>
 								</tr>
-								<%-- <tr >
-									<td align="right" width="30%">审批人</td><td  align="left">
-									<select name="checkman">
-									<c:forEach items="${findUser }" var="user">
-									<c:if test="${user.isAdmin==1 }">
-									<option>${findUser.emp_name}</option>							
-									</c:if>
-									</c:forEach>
-									</select>
-														</td>
-								</tr> --%>
 								<tr >
-									<td align="right" width="30%">请求人</td><td  align="left"><input type="text" name="checkmen" value="${allLeave.emp_name}"></td>
+									<td align="right" width="30%">请假人</td><td  align="left"><input type="text" name="checkmen" value="${personLeave.emp_name}"></td>
 								<tr >
-									<td align="center" colspan="2"><br/><input type="submit"   value="审核通过" onclick="setit()" /></td>
+									<td align="center" colspan="2"><br/><a href="${pageContext.request.contextPath }/user/passCheck?leave_id=${personLeave.leave_id}"><input type="button"   value="审核通过"  /></a>
+									<a href="${pageContext.request.contextPath }/user/passfail?leave_id=${personLeave.leave_id}"><input type="button"   value="审核不通过"  /></a>
+									</td>
 								</tr>
 								
 								</table>

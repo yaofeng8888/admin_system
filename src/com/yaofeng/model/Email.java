@@ -1,6 +1,12 @@
 package com.yaofeng.model;
 
-public class Email {
+import java.io.Serializable;
+
+public class Email implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer email_id;
 	private String email_title;
 	private String email_body;

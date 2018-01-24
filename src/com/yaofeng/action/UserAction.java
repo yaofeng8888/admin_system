@@ -1,14 +1,20 @@
 package com.yaofeng.action;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.List;
-import java.util.UUID;
 
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
-import org.junit.runners.Parameterized.Parameters;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +51,12 @@ public class UserAction {
 			}
 		}
 		return "0";
+	}
+	//注销
+	@RequestMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:tologin";
 	}
 
 	// 修改保存
@@ -88,7 +100,7 @@ public class UserAction {
 	@RequestMapping(value = "/addAccount")
 	public String addAccount(User user, HttpSession session) {
 		userService.addAccount(user);
-		return "adminAccount";
+		return "redirect:adminAccount";
 
 	}
 
@@ -101,23 +113,62 @@ public class UserAction {
 		return "leavelist";
 
 	}
+	//申请休假页面---->审批人
+	@RequestMapping(value="applyleave")
+	public String applyleave(HttpSession session) {
+		List<User> allAdmin = userService.findAllAdmin();
+		session.setAttribute("allAdmin", allAdmin);
+		return "applyleave";
+	}
 
 	// 提交申请submitapply
 	@RequestMapping(value = "/submitapply")
 	public String submitapply(Leave leave, HttpSession session) {
 		userService.submitapply(leave);
-		return "leavelist";
+		return "redirect:toleavelist";
 
 	}
 
 	// 查询所有的请假人的列表
 	@RequestMapping(value = "/showAllLeave")
-	public String dealleave(HttpSession session) {
-		List<Leave> leavelist = userService.findAllLeave();
+	public String dealleave(User user,Leave leave,HttpSession session) {
+		User usersession = (User) session.getAttribute("findUser");
+		String emp_name = usersession.getEmp_name();
+		leave.setCheckmen(emp_name);
+		List<Leave> leavelist = userService.findAllLeave(leave);
 		session.setAttribute("leavelist", leavelist);
 		return "leavelist";
 	}
-
+	
+	//审核详情页
+	@RequestMapping(value = "/dealleave")
+	public String dealleave(Leave leave,HttpSession session) {
+		Leave personLeave = userService.selectById(leave);
+		session.setAttribute("personLeave", personLeave);
+		return "dealleave";
+	}
+	
+	//通过请假审核
+	@RequestMapping(value = "/passCheck")
+	public String passCheck(Leave leave,HttpSession session) {
+		userService.updateLeaveState(leave);
+		return "redirect:showAllLeave";
+	}
+	//请假不通过	
+	@RequestMapping(value = "/passfail")
+	public String passfail(Leave leave,HttpSession session) {
+		userService.updateLeaveStateFail(leave);
+		return "redirect:showAllLeave";
+	}
+	
+	//收件人列表
+	@RequestMapping(value = "/writeEmail")
+	public String writeEmail(HttpSession session) {
+		List<User> allRevice = userService.selectAllRevice();
+		session.setAttribute("allRevice", allRevice);
+		return "writeEmail";
+	}
+	
 	// 发送邮件
 	@RequestMapping(value = "/sendEmail")
 	public String sendEmail(User user, Email email, HttpSession session, @RequestParam("file") MultipartFile file)
@@ -126,7 +177,7 @@ public class UserAction {
 			// String picName = UUID.randomUUID().toString();
 			// 截取文件的扩展名(如.jpg)
 			String oriName = file.getOriginalFilename();
-			// System.out.println("+++++++"+oriName);
+			System.out.println("+++++++"+oriName);
 			/*
 			 * String extName = oriName.substring(oriName.lastIndexOf(".")); // 保存文件
 			 * file.transferTo(new File("E:\\upload\\" + picName + extName));
@@ -157,10 +208,8 @@ public class UserAction {
 	// 邮件详情页
 	@RequestMapping(value = "/emailinfor")
 	public String emailinfor(Email email, User user, HttpSession session) {
-		Integer email_id = email.getEmail_id();
-		System.out.println("============"+email_id);
 		Email findEmailById = userService.findEmailById(email);
-		session.setAttribute("findEmailById", findEmailById);
+		session.setAttribute("findEmailById", findEmailById);		
 		return "emailinfor";
 	}
 	//邮件的已读操作
@@ -170,6 +219,31 @@ public class UserAction {
 		return "redirect:reviceEmail";
 	}
 	
+	// 文件下载
+	@RequestMapping(value="/download")
+		public void down(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			String file = request.getParameter("file_name");
+			// 拼接路劲
+			String fileName = "d:/" + file;
+			// 获取输入流
+			InputStream bis = new BufferedInputStream(new FileInputStream(new File(fileName)));
+			// 假如以中文名下载的话
+			String filenameDown = file;
+			// 转码，免得文件名中文乱码
+			filenameDown = URLEncoder.encode(filenameDown, "iso-8859-1");
+			// 设置文件下载头		
+			response.addHeader("Content-Disposition", "attachment;filename=" + filenameDown);
+			// 1.设置文件ContentType类型，这样设置，会自动判断下载文件类型
+			response.setContentType("multipart/form-data");
+			BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());
+			int len = 0;
+			while ((len = bis.read()) != -1) {
+				out.write(len);
+				out.flush();
+			}
+			out.close();
+		}
+
 	//逻辑删除
 	@RequestMapping(value = "/logicallydelete")
 	public String logicallydelete(Email email, HttpSession session) {

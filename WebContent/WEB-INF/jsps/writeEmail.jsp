@@ -27,7 +27,7 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="location.href='loginOut.action'";>注销</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath }/user/logout">注销</a>
 			</div>
 		</div>
 		<form id="myForm" name="myForm" action="${pageContext.request.contextPath }/user/sendEmail"  enctype="multipart/form-data" method="post">
@@ -83,7 +83,7 @@
 							</c:if>
 						<c:if test="${findUser.isAdmin == 1}">
 						<dd>
-							<a href="${pageContext.request.contextPath}/user/showAllLeave" target="_self">审核</a>
+													<a href="${pageContext.request.contextPath}/user/showAllLeave?emp_name=${findUser.emp_name}" target="_self">审核</a>
 						</dd>
 						</c:if>
 					</dl>
@@ -114,7 +114,13 @@
 						<div class="pages">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr >
-									<td align="right" width="30%">收件人：</td><td  align="left"><input type="text" name="emp_name" value=""  id="emp_name"/></td>
+									<td align="right" width="30%">收件人：</td><td  align="left">
+									<select name="emp_name">
+									<c:forEach items="${allRevice}" var="all">
+									<option>${all.emp_name}</option>							
+									</c:forEach>
+									</select>
+									</td>
 								</tr>
 								<tr >
 									<td align="right" width="30%">邮件标题：</td><td  align="left"><input type="text" name="email_title" value=""  id="email_title"/></td>

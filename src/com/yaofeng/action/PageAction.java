@@ -47,20 +47,20 @@ public class PageAction {
 	public String toaddUser() {
 		return "addUser";
 	}
-	//申请休假页面
+	/*//申请休假页面
 	@RequestMapping(value="applyleave")
 	public String applyleave() {
 		return "applyleave";
-	}
-	//处理休假页面
+	}*/
+	/*//处理休假页面
 	@RequestMapping(value="dealleave")
 	public String dealleave() {
 		return "dealleave";
-	}
-	//写邮件页面
+	}*/
+	/*//写邮件页面
 	@RequestMapping(value="writeEmail")
 	public String writeEmail() {
 		return "writeEmail";
-	}
+	}*/
 	
 }

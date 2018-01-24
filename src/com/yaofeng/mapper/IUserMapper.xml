@@ -4,82 +4,128 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 映射接口到IUserMapper -->
 <mapper namespace="com.yaofeng.mapper.IUserMapper">
-<!-- 个人信息显示 -->
+	<!-- 个人信息显示 -->
 	<select id="findUser" parameterType="User" resultType="User">
 		select *
 		from sys_emp where emp_name=#{emp_name}
 	</select>
-<!-- 账户修改 -->
+	<!-- 账户修改 -->
 	<select id="saveAccount" parameterType="User">
-	update sys_emp set
-		emp_name=#{emp_name},emp_password=#{emp_password} where emp_id=#{emp_id}
+		update sys_emp set
+		emp_name=#{emp_name},emp_password=#{emp_password} where
+		emp_id=#{emp_id}
 	</select>
-<!-- 查找表中所有账户 -->
-	<select id="findAll" resultType="User" >
-	select * from sys_emp
+	<!-- 查找表中所有账户 -->
+	<select id="findAll" resultType="User">
+		select * from sys_emp
 	</select>
-<!-- 根据名字查找自己的休假 -->
+	<!-- 根据名字查找自己的休假 -->
 	<select id="findLeaveList" parameterType="User" resultType="Leave">
-	SELECT emp_name,DATE_FORMAT(start,'%Y-%m-%d') AS start,DATE_FORMAT(end,'%Y-%m-%d') AS end,days,state,reason FROM sys_leave WHERE emp_name=#{emp_name}
+		SELECT emp_name,DATE_FORMAT(start,'%Y-%m-%d') AS
+		start,DATE_FORMAT(end,'%Y-%m-%d') AS end,days,state,reason FROM
+		sys_leave WHERE emp_name=#{emp_name}
 	</select>
-<!-- 显示所有休假列表 -->
+	<!-- 显示所有休假列表 -->
 	<select id="findAllLeave" resultType="Leave">
-	SELECT emp_name,DATE_FORMAT(start,'%Y-%m-%d') AS start,DATE_FORMAT(end,'%Y-%m-%d') AS end,days,state,reason FROM sys_leave
+		SELECT
+		emp_name,DATE_FORMAT(start,'%Y-%m-%d') AS
+		start,DATE_FORMAT(end,'%Y-%m-%d') AS end,days,state,reason,leave_id
+		FROM sys_leave WHERE checkmen=#{checkmen}
 	</select>
-<!-- 修改个人信息 -->
+
+	<!-- 申请休假审批人列表 -->
+	<select id="findAllAdmin" resultType="User">
+		select * from sys_emp where
+		isAdmin=1
+	</select>
+
+	<!-- 审核详情页 -->
+	<select id="selectById" parameterType="Leave" resultType="Leave">
+		select
+		* from sys_leave where leave_id=#{leave_id}
+	</select>
+	<!-- 审核通过 -->
+	<update id="updateLeaveState" parameterType="Leave">
+		update sys_leave set
+		state=0 where leave_id=#{leave_id}
+	</update>
+
+	<!-- 审核不通过 -->
+	<update id="updateLeaveStateFail" parameterType="Leave">
+		update sys_leave
+		set state=2 where leave_id=#{leave_id}
+	</update>
+	<!-- 修改个人信息 -->
 	<update id="saveUser" parameterType="User">
 		update sys_emp set
 		emp_name=#{emp_name},emp_age=#{emp_age},emp_sex=#{emp_sex},
-		emp_phone =#{emp_phone},emp_address=#{emp_address} where emp_id=#{emp_id}
+		emp_phone
+		=#{emp_phone},emp_address=#{emp_address} where emp_id=#{emp_id}
 	</update>
-<!-- 增加账户 -->	
+	<!-- 增加账户 -->
 	<insert id="addAccount" parameterType="User">
-	INSERT INTO sys_emp(emp_name,emp_password,emp_nickname,emp_age,emp_sex,emp_phone,emp_address)
-VALUE(#{emp_name},#{emp_password},#{emp_nickname},#{emp_age},#{emp_sex},#{emp_phone},#{emp_address})
-<!-- 申请休假 -->	
+		INSERT INTO
+		sys_emp(emp_name,emp_password,emp_nickname,emp_age,emp_sex,emp_phone,emp_address)
+		VALUE(#{emp_name},#{emp_password},#{emp_nickname},#{emp_age},#{emp_sex},#{emp_phone},#{emp_address})
+		<!-- 申请休假 -->
 	</insert>
 	<insert id="submitapply" parameterType="Leave">
-	INSERT INTO sys_leave(emp_name,START,END,days,reason,checkmen)VALUE(#{emp_name},#{start},#{end},#{days},#{reason},#{checkmen})
+		INSERT INTO
+		sys_leave(emp_name,START,END,days,reason,checkmen)VALUE(#{emp_name},#{start},#{end},#{days},#{reason},#{checkmen})
 	</insert>
 	
-<!-- 发送邮件 -->
-<insert id="saveEmail" parameterType="Email">
-INSERT INTO sys_email(email_title,email_body,emp_name,file_name,send_name)VALUE(#{email_title},#{email_body},#{emp_name},#{file_name},#{send_name})
-</insert>
+	<!-- 查找所有的收件人-->
+	<select id="selectAllRevice" resultType="User">
+	select emp_name from sys_emp
+	</select>
+	<!-- 发送邮件 -->
+	<insert id="saveEmail" parameterType="Email">
+		INSERT INTO
+		sys_email(email_title,email_body,emp_name,file_name,send_name)VALUE(#{email_title},#{email_body},#{emp_name},#{file_name},#{send_name})
+	</insert>
 
-<!-- 查询邮件信息列表 -->
-<select id="findEmailByName" parameterType="User" resultType="Email">
-SELECT email_title,email_body,isRead,DATE_FORMAT(sendTime,'%Y-%m-%d') AS sendTime,emp_name,file_name,isDelete,send_name,email_id FROM sys_email where emp_name=#{emp_name}
-and isDelete=0
-</select>
+	<!-- 查询邮件信息列表 -->
+	<select id="findEmailByName" parameterType="User" resultType="Email">
+		SELECT email_title,email_body,isRead,DATE_FORMAT(sendTime,'%Y-%m-%d')
+		AS sendTime,emp_name,file_name,isDelete,send_name,email_id FROM
+		sys_email where emp_name=#{emp_name}
+		and isDelete=0
+	</select>
 
-<!-- 邮件详情页 -->
-<select id="findEmailById" parameterType="Email" resultType="Email">
-select * from sys_email where email_id=#{email_id}
-</select>
-<!--修改email的读写状态  -->
-<update id="updateEmailById" parameterType="Email">
-UPDATE sys_email SET isRead=1 WHERE email_id=#{email_id};
-</update>
+	<!-- 邮件详情页 -->
+	<select id="findEmailById" parameterType="Email" resultType="Email">
+		select * from sys_email where email_id=#{email_id}
+	</select>
+	<!--修改email的读写状态 -->
+	<update id="updateEmailById" parameterType="Email">
+		UPDATE sys_email SET
+		isRead=1 WHERE email_id=#{email_id};
+	</update>
 
-<!-- 逻辑删除 -->
-<update id="deleteBylogically" parameterType="Email">
-UPDATE sys_email SET isDelete=1 WHERE email_id=#{email_id};
-</update>
+	<!-- 逻辑删除 -->
+	<update id="deleteBylogically" parameterType="Email">
+		UPDATE sys_email
+		SET isDelete=1 WHERE email_id=#{email_id};
+	</update>
 
-<!-- 查找所有垃圾邮件 -->
-<select id="findAllJunk" parameterType="User" resultType="Email">
-SELECT email_title,email_body,isRead,DATE_FORMAT(sendTime,'%Y-%m-%d') AS sendTime,emp_name,file_name,isDelete,send_name,email_id FROM sys_email where emp_name=#{emp_name}
-and isDelete=1
-</select>
-<!-- 物理删除 -->
-<delete id="deleteEmail" parameterType="Email">
-delete from sys_email where email_id=#{email_id}
-</delete>
+	<!-- 查找所有垃圾邮件 -->
+	<select id="findAllJunk" parameterType="User" resultType="Email">
+		SELECT
+		email_title,email_body,isRead,DATE_FORMAT(sendTime,'%Y-%m-%d') AS
+		sendTime,emp_name,file_name,isDelete,send_name,email_id FROM sys_email
+		where emp_name=#{emp_name}
+		and isDelete=1
+	</select>
+	<!-- 物理删除 -->
+	<delete id="deleteEmail" parameterType="Email">
+		delete from sys_email
+		where email_id=#{email_id}
+	</delete>
 
-<!-- 还原操作 -->
-<update id="restoreEmail" parameterType="Email">
-UPDATE sys_email SET isDelete=0 WHERE email_id=#{email_id};
-</update>
+	<!-- 还原操作 -->
+	<update id="restoreEmail" parameterType="Email">
+		UPDATE sys_email SET
+		isDelete=0 WHERE email_id=#{email_id};
+	</update>
 </mapper>
   

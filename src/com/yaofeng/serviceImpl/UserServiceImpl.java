@@ -59,9 +59,9 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<Leave> findAllLeave() {
+	public List<Leave> findAllLeave(Leave leave) {
 		// TODO Auto-generated method stub
-		return userMapper.findAllLeave();
+		return userMapper.findAllLeave(leave);
 	}
 
 	@Override
@@ -110,6 +110,37 @@ public class UserServiceImpl implements IUserService {
 	public void restoreEmail(Email email) {
 		// TODO Auto-generated method stub
 		userMapper.restoreEmail(email);
+	}
+
+	@Override
+	public void updateLeaveState(Leave leave) {
+		// TODO Auto-generated method stub
+		userMapper.updateLeaveState(leave);
+	}
+
+	@Override
+	public Leave selectById(Leave leave) {
+		// TODO Auto-generated method stub
+		return userMapper.selectById(leave);
+	}
+
+	@Override
+	public void updateLeaveStateFail(Leave leave) {
+		// TODO Auto-generated method stub
+		userMapper.updateLeaveStateFail(leave);
+		
+	}
+
+	@Override
+	public List<User> findAllAdmin() {
+		// TODO Auto-generated method stub
+		return userMapper.findAllAdmin();
+	}
+
+	@Override
+	public List<User> selectAllRevice() {
+		// TODO Auto-generated method stub
+		return userMapper.selectAllRevice();
 	}
 
 }
