@@ -114,15 +114,15 @@
 						<div class="pages">
 							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 								<tr >
-									<td align="right" width="30%">姓名</td><td  align="left"><input type="text" name="emp_name" value=""  id="emp_name"/></td>
+									<td align="right" width="30%">姓名</td><td  align="left"><input type="text" name="emp_name" value="${findUser.emp_name }" id="emp_name" readonly="readonly"/></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">开始时间</td><td  align="left"><input type="text" name="start" value=""  id="start"/></td>
+									<td align="right" width="30%">开始时间</td><td  align="left"><input type="date" name="start" value=""  id="start"/></td>
 								</tr>
 								<tr >
 									<td align="right" width="30%">结束时间</td><td  align="left">
 									
-										<input type="text" name="end" value=""  id="end"/>
+										<input type="date" name="end" value=""  id="end"/>
 									
 									</td>
 								</tr>

@@ -121,10 +121,10 @@
 							</tr>
 							<c:forEach items="${findAll}" var="user">
 									<tr style="border=0">
-									<td  align="left"><input type="text" value="${user.emp_name }" readonly="readonly"/></td>
-									<td  align="left"><input type="text" value="${user.emp_nickname }" readonly="readonly"/></td>
-									<td  align="left"><input type="text" value="${user.emp_phone }" readonly="readonly"/></td>
-									<td  align="left"><input type="text" value="${user.emp_address}" readonly="readonly"/></td>
+									<td  align="left">${user.emp_name }</td>
+									<td  align="left">${user.emp_nickname }</td>
+									<td  align="left">${user.emp_phone }</td>
+									<td  align="left">${user.emp_address}</td>
 								</tr>
 							</c:forEach>
 								</table>

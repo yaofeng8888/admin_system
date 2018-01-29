@@ -37,10 +37,10 @@
         <property name="defaultEncoding">
             <value>UTF-8</value>
         </property>
-        <property name="maxUploadSize">
-            <!-- 9M -->
+        <!-- <property name="maxUploadSize">
+            9M
             <value>9437184</value>
-        </property>
+        </property> -->
         <property name="maxInMemorySize">
             <value>4096</value>
         </property>

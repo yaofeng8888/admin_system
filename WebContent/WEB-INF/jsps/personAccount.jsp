@@ -117,7 +117,7 @@
 									<td align="right" width="30%">用户名：</td><td  align="left"><input type="text" name="emp.name" value="${findUser.emp_name }" readonly="readonly" id="emp.name"/></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">密码：</td><td  align="left"><input type="text" name="emp_password" value="${findUser.emp_password }" readonly="readonly" id="emp_password"/></td>
+									<td align="right" width="30%">密码：</td><td  align="left"><input type="password" name="emp_password" value="${findUser.emp_password }" readonly="readonly" id="emp_password"/></td>
 								</tr>
 								<tr>
 								<td align="center" colspan="2"><br />

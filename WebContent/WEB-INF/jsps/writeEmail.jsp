@@ -8,9 +8,11 @@
 		<title>办公自动化管理系统</title>
 		<link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" type="text/css" />
 		<script>
-			function setit()
+			function setit(ele)
 			{
-				document.forms[0].submit();
+				if(ele.files[0].size>9437184){
+				document.getElementById("message").innerHTML="文件不得超过9M";
+				}
 			}
 		</script>
 	</head>
@@ -130,7 +132,7 @@
 									<td align="right" width="30%">邮件内容：</td><td  align="left"><textarea rows="10" cols="19" name="email_body"></textarea></td>
 								</tr>
 								<tr >
-									<td align="right" width="30%">上传附件：</td><td  align="left"><input type="file" name="file"/></td>
+									<td align="right" width="30%">上传附件：</td><td  align="left"><input type="file" name="file" onchange="setit(this)"/><span id="message"></span></td>
 								</tr> 
 								<tr >
 									<td align="center" colspan="2"><br/><input type="submit"  id="save" value="发送邮件"/></td>
@@ -146,6 +148,5 @@
 		<div class="copyright">
 			Copyright &nbsp; &copy; &nbsp; 
 		</div>
- 
 	</body>
 </html>

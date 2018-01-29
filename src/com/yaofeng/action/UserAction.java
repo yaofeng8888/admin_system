@@ -171,26 +171,28 @@ public class UserAction {
 	
 	// 发送邮件
 	@RequestMapping(value = "/sendEmail")
-	public String sendEmail(User user, Email email, HttpSession session, @RequestParam("file") MultipartFile file)
+	public String sendEmail(User user, Email email, HttpServletResponse response,
+			HttpSession session, @RequestParam("file") MultipartFile file)
 			throws Exception, IOException {
 		if (!file.isEmpty()) {
 			// String picName = UUID.randomUUID().toString();
 			// 截取文件的扩展名(如.jpg)
 			String oriName = file.getOriginalFilename();
 			System.out.println("+++++++"+oriName);
-			/*
-			 * String extName = oriName.substring(oriName.lastIndexOf(".")); // 保存文件
-			 * file.transferTo(new File("E:\\upload\\" + picName + extName));
-			 */
-
-			file.transferTo(new File("d:/" + file.getOriginalFilename()));
-			email.setFile_name(oriName);
+			long size = file.getSize();
+			if(size>9437184) {
+				return "redirect:writeEmail";
+			}else {
+				file.transferTo(new File("d:/" + file.getOriginalFilename()));
+				email.setFile_name(oriName);
+				User usersession = (User) session.getAttribute("findUser");
+				String send_name = usersession.getEmp_name();
+				email.setSend_name(send_name);
+				userService.saveEmail(email);
+				return "index";
+			}
 		}
-		User usersession = (User) session.getAttribute("findUser");
-		String send_name = usersession.getEmp_name();
-		email.setSend_name(send_name);
-		userService.saveEmail(email);
-		return "index";
+		return "1";	
 	}
 
 	// 查询邮件列表

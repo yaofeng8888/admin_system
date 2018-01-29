@@ -112,42 +112,45 @@
 							休假列表
 						</div>
 						<div class="pages">
-							<table width="50%" border="0" cellspacing="0" cellpadding="0">
+							<table width="90%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
-							<td>申请人</td>
-							<td>开始时间</td>
-							<td>结束时间</td>
-							<td>天数</td>
-							<td>审批状态</td>
-							<td>原因</td>
-							<c:if test="${findUser.isAdmin == 1 }">
-								<td>操作</td>
+								<td width="15%">申请人</td>
+								<td width="15%">开始时间</td>
+								<td width="15%">结束时间</td>
+								<td width="15%">天数</td>
+								<td width="15%">审批状态</td>
+								<td width="15%">原因</td>
+								<c:if test="${findUser.isAdmin == 1 }">
+									<td width="10%">操作</td>
 								</c:if> 
 							</tr>
-								<c:forEach items="${leavelist }" var="list">
-								<tr>
-								<td><input type ="text"  value="${list.emp_name }"readonly="readonly" /></td>
-								<td><input type="text"	 value="${list.start }" readonly="readonly"  /></td>
-								<td><input type = "text"  value="${list.end }"readonly="readonly" /></td>
-								<td><input type = "text"  value="${list.days }"readonly="readonly" /></td>
-								 <c:if test="${list.state == 1 }">
-								<td><input type = "text"  value="未审核"readonly="readonly" /></td>
-								</c:if>
-								<c:if test="${list.state == 0 }">
-								<td><input type = "text"  value="已审核"readonly="readonly" /></td>
-								</c:if> 
-								<c:if test="${list.state == 2 }">
-								<td><input type = "text"  value="审核拒绝"readonly="readonly" /></td>
-								</c:if> 
-								<td><input type = "text"  value="${list.reason }"readonly="readonly" /></td>
-								</tr>
+						<c:forEach items="${leavelist}" var="list">
+							<tr>
+								<td>${list.emp_name }</td>
+								<td>${list.start}</td>
+								<td>${list.end }</td>
+								<td>${list.days }</td>
+								<td>
+								  	<c:if test="${list.state == 1 }">
+									未审核
+									</c:if>
+									<c:if test="${list.state == 0 }">
+									已审核
+									</c:if> 
+									<c:if test="${list.state == 2 }">
+									审核拒绝
+									</c:if> 
+								</td>
+								<td>${list.reason }</td>
+								
 								<c:if test="${findUser.isAdmin == 1 }">
-								<td><a href="${pageContext.request.contextPath }/user/dealleave?leave_id=${list.leave_id}">审核</a></td>
+									<td><a href="${pageContext.request.contextPath }/user/dealleave?leave_id=${list.leave_id}">审核</a></td>
 								</c:if> 
-								</c:forEach>
-								<tr>
+							</tr>
+						</c:forEach>
+							<tr>
 								<td><a href="${pageContext.request.contextPath }/user/applyleave"><input type="button" value="申请休假"></a></td>
-								</tr>
+							</tr>
 								</table>							
 						</div>
 					</div>

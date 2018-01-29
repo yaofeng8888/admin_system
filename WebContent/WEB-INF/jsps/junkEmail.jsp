@@ -123,11 +123,11 @@
 					<div class="pages">
 						<table width="90%" border="0" cellspacing="0" cellpadding="0">
 							<tr>
-								<td align="left" width="30%">邮件标题</td>
-								<td align="left" width="30%">内容</td>
-								<td align="left" width="30%">是否以读</td>
-								<td align="left" width="30%">时间</td>
-								<td align="left" width="30%">操作</td>
+								<td align="left" width="18%">邮件标题</td>
+								<td align="left" width="18%">内容</td>
+								<td align="left" width="18%">是否以读</td>
+								<td align="left" width="18%">时间</td>
+								<td align="left" width="18%">操作</td>
 							</tr>
 							<c:forEach items="${findAll}" var="all">
 								<tr>
